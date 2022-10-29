@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 import SearchBar from "./SearchBar";
 import youtube from "../api/youtube";
 import VideoList from "./VideoList";
@@ -34,9 +34,9 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default App;*/
 
-/*import React from "react";
+import React from "react";
 import SearchBar from "./SearchBar";
 import youtube from "../api/youtube";
 import VideoList from "./VideoList";
@@ -45,6 +45,10 @@ import VideoDetail from "./VideoDetail";
 class App extends React.Component {
   state = { videos: [], selectedVideo: null };
 
+  componentDidMount(){
+    this.onTermSubmit("children's stories");
+  }
+
   onTermSubmit = async (term) => {
     const response = await youtube.get("/search", {
       params: {
@@ -52,7 +56,10 @@ class App extends React.Component {
       },
     });
 
-    this.setState({ videos: response.data.items });
+    this.setState({
+       videos: response.data.items,
+       selectedVideo: response.data.items[0]
+       });
   };
 
   onVideoSelect = (video) => {
@@ -63,14 +70,26 @@ class App extends React.Component {
     return (
       <div className="ui container">
         <SearchBar onFormSubmit={this.onTermSubmit} />
+
+        <div div class="ui grid">
+        <div div class="ui row">
+        <div class="eleven wide column"> 
         <VideoDetail video={this.state.selectedVideo} />
+        </div>
+       
+        <div class="five wide column">
         <VideoList
           onVideoSelect={this.onVideoSelect}
           videos={this.state.videos}
         />
+        </div>
+       
+        </div>
+        </div>
       </div>
     );
   }
 }
 
-export default App; */
+export default App;
+
